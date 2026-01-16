@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nagendra M | Backend Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a192f;
+            --secondary: #112240;
+            --accent: #64ffda;
+            --accent-secondary: #ff6b6b;
+            --text-primary: #ccd6f6;
+            --text-secondary: #8892b0;
+            --light-bg: #233554;
+            --card-bg: rgba(17, 34, 64, 0.7);
+            --gradient: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            cursor: none;
+            letter-spacing: 0.3px;
+            font-weight: 400;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Professional Cursor System */
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.15s ease, height 0.15s ease, background-color 0.15s ease;
+            mix-blend-mode: difference;
+        }
+        
+        .cursor-outline {
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            mix-blend-mode: difference;
+            opacity: 0.7;
+        }
+        
+        /* Cursor effects on hover */
+        .cursor-hover .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-secondary);
+        }
+        
+        .cursor-hover .cursor-outline {
+            width: 50px;
+            height: 50px;
+            border-color: var(--accent-secondary);
+            border-width: 1.5px;
+            opacity: 0.8;
+        }
+        
+        .cursor-click .cursor-outline {
+            transform: translate(-50%, -50%) scale(0.85);
+        }
+        
+        /* Typography Refinements */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        
+        h1 {
+            line-height: 1.1;
+        }
+        
+        p {
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+            max-width: 65ch;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1.5px;
+            background: var(--accent);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding-top: 5rem;
+        }
+        
+        .hero-content {
+            max-width: 700px;
+        }
+        
+        .hero-subtitle {
+            color: var(--accent);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+        }
+        
+        .hero-subtitle::before {
+            content: '';
+            width: 60px;
+            height: 1.5px;
+            background-color: var(--accent);
+            margin-right: 1rem;
+        }
+        
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 1.2rem;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+        }
+        
+        .hero-title span {
+            color: var(--accent);
+        }
+        
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.8;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3.5rem;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(100, 255, 218, 0.2);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent);
+            border: 1.5px solid var(--accent);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .social-link {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Sections */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 3.5rem;
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.8px;
+        }
+        
+        .section-title span {
+            color: var(--accent);
+            margin-right: 1rem;
+        }
+        
+        /* Interactive Cards */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1.5px solid rgba(100, 255, 218, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.05) 0%, transparent 100%);
+            z-index: 0;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow);
+            border-color: rgba(100, 255, 218, 0.25);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-icon {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.3px;
+        }
+        
+        .card-subtitle {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .card-summary {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-details.expanded {
+            max-height: 800px;
+            margin-top: 1.5rem;
+        }
+        
+        .card-details-content {
+            padding-top: 1.5rem;
+            border-top: 1.5px solid rgba(136, 146, 176, 0.2);
+        }
+        
+        .detail-list {
+            list-style: none;
+        }
+        
+        .detail-list li {
+            margin-bottom: 0.8rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.6;
+            padding-left: 0.5rem;
+        }
+        
+        .detail-list i {
+            color: var(--accent);
+            margin-right: 0.8rem;
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+        
+        .toggle-icon {
+            color: var(--accent);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .toggle-icon.expanded {
+            transform: rotate(180deg);
+        }
+        
+        /* Certifications Section */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .cert-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1.5px solid rgba(100, 255, 218, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .cert-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(100, 255, 218, 0.25);
+            box-shadow: var(--shadow);
+        }
+        
+        .cert-badge {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent) 0%, #1a8cff 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .cert-provider {
+            color: var(--accent-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Skills */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .skill-category {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1.5px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .skill-category h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.3px;
+        }
+        
+        .skill-category h3 i {
+            margin-right: 0.8rem;
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        
+        .skill-tag {
+            background-color: rgba(100, 255, 218, 0.08);
+            color: var(--accent);
+            padding: 0.6rem 1rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            letter-spacing: 0.3px;
+        }
+        
+        .skill-tag:hover {
+            background-color: rgba(100, 255, 218, 0.15);
+            transform: translateY(-2px);
+            border-color: rgba(100, 255, 218, 0.3);
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-text h4 {
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.3px;
+        }
+        
+        .contact-text p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Direct Email Section */
+        .direct-email-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.5rem;
+            border: 1.5px solid rgba(100, 255, 218, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .direct-email-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .direct-email-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            max-width: 90%;
+        }
+        
+        .direct-email-btn {
+            background-color: var(--accent);
+            color: var(--primary);
+            padding: 1.2rem 2.5rem;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 2rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .direct-email-btn:hover {
+            background-color: transparent;
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(100, 255, 218, 0.15);
+        }
+        
+        .email-helper-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: rgba(100, 255, 218, 0.05);
+            border-radius: 6px;
+            width: 100%;
+            line-height: 1.6;
+        }
+        
+        /* Contact Methods Grid */
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .contact-method-card {
+            background-color: rgba(10, 25, 47, 0.5);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1.5px solid rgba(100, 255, 218, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .contact-method-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(100, 255, 218, 0.25);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .method-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        
+        .method-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+        }
+        
+        .method-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        
+        .method-action {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background-color: rgba(100, 255, 218, 0.08);
+            color: var(--accent);
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            letter-spacing: 0.3px;
+        }
+        
+        .method-action:hover {
+            background-color: rgba(100, 255, 218, 0.15);
+            transform: translateY(-2px);
+            border-color: rgba(100, 255, 218, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .nav-links li {
+                margin: 0 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .card-container, .cert-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+                line-height: 1.7;
+            }
+            
+            /* Hide cursor on mobile */
+            .cursor-dot, .cursor-outline {
+                display: none;
+            }
+            
+            body {
+                cursor: auto;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        /* Particle Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Code Background Effect */
+        .code-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            opacity: 0.03;
+            overflow: hidden;
+            z-index: -1;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+        }
+        
+        .code-line {
+            font-family: monospace;
+            color: var(--accent);
+            white-space: pre;
+            opacity: 0.5;
+        }
+        
+        /* Experience Category Badges */
+        .exp-category {
+            margin-bottom: 3.5rem;
+        }
+        
+        .exp-category-title {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .exp-category-title i {
+            font-size: 1.5rem;
+        }
+        
+        /* Modal for Certificate Details */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 25, 47, 0.95);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .modal-content {
+            background-color: var(--secondary);
+            border-radius: 12px;
+            padding: 3rem;
+            max-width: 800px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1.5px solid rgba(100, 255, 218, 0.15);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .modal-close:hover {
+            color: var(--accent-secondary);
+        }
+        
+        .modal-header {
+            margin-bottom: 2rem;
+        }
+        
+        .modal-title {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.8px;
+        }
+        
+        .modal-subtitle {
+            color: var(--accent-secondary);
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .modal-body {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        
+        .modal-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .modal-list li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.7;
+        }
+        
+        .modal-list li:before {
+            content: "▸";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-size: 0.9rem;
+        }
+        
+        /* Fallback Modal */
+        .fallback-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1.5px solid var(--accent);
+            z-index: 10000;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .fallback-header {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+        }
+        
+        .fallback-text {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .email-display {
+            background-color: rgba(100, 255, 218, 0.08);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 0.9rem;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .copy-email-btn {
+            background-color: var(--accent);
+            color: var(--primary);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .copy-email-btn:hover {
+            background-color: transparent;
+            color: var(--accent);
+            border: 1.5px solid var(--accent);
+        }
+        
+        .close-fallback {
+            display: block;
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .close-fallback:hover {
+            color: var(--accent);
+        }
+        
+        /* Spacing and Layout Refinements */
+        .detail-list li div {
+            flex: 1;
+        }
+        
+        /* Additional spacing for better readability */
+        .card-summary + .card-details {
+            margin-top: 0.5rem;
+        }
+        
+        /* Better text contrast for readability */
+        .detail-list li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Professional Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-code"></i> Nagendra
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container fade-in">
+            <p class="hero-subtitle">Hi, my name is</p>
+            <h1 class="hero-title">Nagendra M.</h1>
+            <h1 class="hero-title">I build things for the <span>backend.</span></h1>
+            <p class="hero-description">
+                I'm a backend-focused BCA student with a strong academic record (CGPA 9.6) and proven leadership as President of the BCA Department Club. I specialize in building robust backend systems using Java, Spring Boot, and MySQL.
+            </p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                <a href="#projects" class="btn btn-secondary">View My Work</a>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/NagendraM18" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/nagendra-m-904a02284/" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://www.hackerrank.com/profile/nagendramgowda21" target="_blank" class="social-link">
+                    <i class="fab fa-hackerrank"></i>
+                </a>
+                <a href="mailto:nagendradev2124@gmail.com" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Code Background Effect -->
+        <div class="code-bg">
+            <div class="code-line">public class Portfolio {</div>
+            <div class="code-line">  private String name = "Nagendra M";</div>
+            <div class="code-line">  private String role = "Backend Developer";</div>
+            <div class="code-line">  private String[] skills = {"Java", "Spring Boot", "MySQL"};</div>
+            <div class="code-line">  public void showProjects() {</div>
+            <div class="code-line">    // Interactive portfolio with expandable details</div>
+            <div class="code-line">  }</div>
+            <div class="code-line">}</div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2 class="section-title"><span>#</span> About Me</h2>
+        <div class="card-container">
+            <div class="card" onclick="toggleDetails(this)">
+                <div class="card-header">
+                    <div>
+                        <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3 class="card-title">Education</h3>
+                        <p class="card-subtitle">Academic Background</p>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <p class="card-summary">BCA student with 9.6 CGPA and exceptional academic achievements.</p>
+                <div class="card-details">
+                    <div class="card-details-content">
+                        <ul class="detail-list">
+                            <li>
+                                <i class="fas fa-university"></i>
+                                <div>
+                                    <strong>Bachelor of Computer Application</strong><br>
+                                    Acharya Bengaluru B School (2023-2026)<br>
+                                    CGPA: 9.6 (Current)
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-school"></i>
+                                <div>
+                                    <strong>Pre-University in Commerce</strong><br>
+                                    BGS Pre University College (2021-2023)<br>
+                                    Percentage: 98% (State Rank 10)
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" onclick="toggleDetails(this)">
+                <div class="card-header">
+                    <div>
+                        <div class="card-icon"><i class="fas fa-trophy"></i></div>
+                        <h3 class="card-title">Achievements</h3>
+                        <p class="card-subtitle">Recognition & Awards</p>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <p class="card-summary">Winner of multiple intercollege competitions and events.</p>
+                <div class="card-details">
+                    <div class="card-details-content">
+                        <ul class="detail-list">
+                            <li><i class="fas fa-medal"></i> Winner - Intercollege Quiz Competition (2025)</li>
+                            <li><i class="fas fa-medal"></i> Winner - Intercollege Debugging Contest (2025)</li>
+                            <li><i class="fas fa-microphone"></i> Conducted multiple events on emerging technologies</li>
+                            <li><i class="fas fa-code"></i> Active participant in intercollege competitions (2024-present)</li>
+                            <li><i class="fas fa-star"></i> State Rank 10 in +2 Examinations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" onclick="toggleDetails(this)">
+                <div class="card-header">
+                    <div>
+                        <div class="card-icon"><i class="fas fa-user"></i></div>
+                        <h3 class="card-title">Profile</h3>
+                        <p class="card-subtitle">Additional Information</p>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <p class="card-summary">Languages, interests, and professional summary.</p>
+                <div class="card-details">
+                    <div class="card-details-content">
+                        <ul class="detail-list">
+                            <li><i class="fas fa-language"></i> <strong>Languages:</strong> English (Professional), Kannada (Native), Hindi (Limited)</li>
+                            <li><i class="fas fa-puzzle-piece"></i> <strong>Interests:</strong> Solving problems on HackerRank, Cricket, participating in technical events</li>
+                            <li><i class="fas fa-bullseye"></i> <strong>Professional Focus:</strong> Backend development with Java, Spring Boot, and MySQL</li>
+                            <li><i class="fas fa-users"></i> <strong>Leadership:</strong> President of BCA Department Club (2025-2026)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <h2 class="section-title"><span>#</span> Experience</h2>
+        
+        <!-- Job Simulations Category -->
+        <div class="exp-category">
+            <h3 class="exp-category-title">
+                <i class="fas fa-briefcase"></i> Job Simulations
+            </h3>
+            <div class="card-container">
+                <div class="card" onclick="toggleDetails(this)">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
+                            <h3 class="card-title">Hewlett Packard Enterprise</h3>
+                            <p class="card-subtitle">Software Engineering Job Simulation | October 2025</p>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </div>
+                    <p class="card-summary">Software Engineering Job Simulation on Forage platform.</p>
+                    <div class="card-details">
+                        <div class="card-details-content">
+                            <ul class="detail-list">
+                                <li><i class="fas fa-check-circle"></i> Wrote a proposal for a RESTful web service to manage a list of employees</li>
+                                <li><i class="fas fa-check-circle"></i> Built a web server application in Java Spring Boot that can accept and respond to HTTP requests</li>
+                                <li><i class="fas fa-check-circle"></i> Developed and ran a set of unit tests to assess Java Spring Boot application's performance</li>
+                                <li><i class="fas fa-check-circle"></i> Gained hands-on experience in building RESTful web applications and integrating databases using Spring Boot</li>
+                                <li><i class="fas fa-check-circle"></i> Implemented support for uploading JSON data to the application</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="toggleDetails(this)">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-icon"><i class="fas fa-gamepad"></i></div>
+                            <h3 class="card-title">Electronic Arts</h3>
+                            <p class="card-subtitle">Software Engineering Virtual Experience | October 2025</p>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </div>
+                    <p class="card-summary">Software Engineering virtual experience program on Forage.</p>
+                    <div class="card-details">
+                        <div class="card-details-content">
+                            <ul class="detail-list">
+                                <li><i class="fas fa-check-circle"></i> Proposed a new feature for EA Sports College Football and wrote a Feature Proposal describing it to stakeholders</li>
+                                <li><i class="fas fa-check-circle"></i> Built a class diagram and created a header file in C++ with class definitions for each object</li>
+                                <li><i class="fas fa-check-circle"></i> Patched a bugfix and optimized the EA Sports College Football codebase by implementing an improved data structure</li>
+                                <li><i class="fas fa-check-circle"></i> Gained knowledge of designing class diagrams and adding new features to existing projects</li>
+                                <li><i class="fas fa-check-circle"></i> Learned to communicate technical proposals effectively to different stakeholders</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Campus Involvement Category -->
+        <div class="exp-category">
+            <h3 class="exp-category-title">
+                <i class="fas fa-university"></i> Campus Involvement
+            </h3>
+            <div class="card-container">
+                <div class="card" onclick="toggleDetails(this)">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-icon"><i class="fas fa-users"></i></div>
+                            <h3 class="card-title">President - BCA Department Club</h3>
+                            <p class="card-subtitle">Acharya Bengaluru Business School | 2025-2026</p>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </div>
+                    <p class="card-summary">Led the BCA Department Club with focus on technical events and student collaboration.</p>
+                    <div class="card-details">
+                        <div class="card-details-content">
+                            <ul class="detail-list">
+                                <li><i class="fas fa-check-circle"></i> Directed departmental programs, including intercollegiate coding competitions and hands-on technical workshops</li>
+                                <li><i class="fas fa-check-circle"></i> Facilitated collaboration among students to plan, organize, and execute academic and technical events</li>
+                                <li><i class="fas fa-check-circle"></i> Organized and hosted debugging competitions with 100+ participants</li>
+                                <li><i class="fas fa-check-circle"></i> Designed problem statements and scoring criteria for coding challenges</li>
+                                <li><i class="fas fa-check-circle"></i> Guided and trained junior students in advanced debugging techniques and competitive programming strategies</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="toggleDetails(this)">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-icon"><i class="fas fa-microphone-alt"></i></div>
+                            <h3 class="card-title">Event Conductor & Competition Participant</h3>
+                            <p class="card-subtitle">Multiple Intercollege Events | 2024-Present</p>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </div>
+                    <p class="card-summary">Organized and participated in various technical events and competitions.</p>
+                    <div class="card-details">
+                        <div class="card-details-content">
+                            <ul class="detail-list">
+                                <li><i class="fas fa-check-circle"></i> Organized and hosted debugging competitions with 100+ participants</li>
+                                <li><i class="fas fa-check-circle"></i> Designed problem statements and scoring criteria for coding challenges</li>
+                                <li><i class="fas fa-check-circle"></i> Guided and trained junior students in advanced debugging techniques</li>
+                                <li><i class="fas fa-check-circle"></i> Engaged in multiple hackathons and intercollegiate technical contests</li>
+                                <li><i class="fas fa-check-circle"></i> Applied problem-solving and teamwork skills in real-world scenarios</li>
+                                <li><i class="fas fa-check-circle"></i> Participated in many intercollege competitions (2024-present)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <h2 class="section-title"><span>#</span> Projects</h2>
+        <div class="card-container">
+            <div class="card" onclick="toggleDetails(this)">
+                <div class="card-header">
+                    <div>
+                        <div class="card-icon"><i class="fas fa-microchip"></i></div>
+                        <h3 class="card-title">Smart Desk Buddy for Remote Workers</h3>
+                        <p class="card-subtitle">IoT Project | In Progress</p>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <p class="card-summary">IoT project using Arduino IDE and sensors to create a smart desk assistant.</p>
+                <div class="card-details">
+                    <div class="card-details-content">
+                        <ul class="detail-list">
+                            <li><i class="fas fa-cog"></i> <strong>Technology:</strong> Arduino IDE, Sensors, IoT Components</li>
+                            <li><i class="fas fa-bullseye"></i> <strong>Objective:</strong> Create a smart desk assistant for remote workers to improve productivity and ergonomics</li>
+                            <li><i class="fas fa-lightbulb"></i> <strong>Features:</strong> Automated lighting, posture monitoring, task reminders, environmental monitoring</li>
+                            <li><i class="fas fa-code"></i> <strong>Status:</strong> Currently in development phase</li>
+                            <li><i class="fas fa-tools"></i> <strong>Tools:</strong> Building with help of AI using Arduino IDE and sensors</li>
+                        </ul>
+                        <div style="margin-top: 1.5rem;">
+                            <span class="skill-tag">IoT</span>
+                            <span class="skill-tag">Arduino</span>
+                            <span class="skill-tag">Sensors</span>
+                            <span class="skill-tag">Embedded Systems</span>
+                            <span class="skill-tag">AI Integration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" onclick="toggleDetails(this)">
+                <div class="card-header">
+                    <div>
+                        <div class="card-icon"><i class="fas fa-user-graduate"></i></div>
+                        <h3 class="card-title">Student Management System</h3>
+                        <p class="card-subtitle">Spring Boot + MySQL | 2025</p>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <p class="card-summary">Web-based application for managing student records with full CRUD functionality.</p>
+                <div class="card-details">
+                    <div class="card-details-content">
+                        <ul class="detail-list">
+                            <li><i class="fas fa-cog"></i> <strong>Technology:</strong> Spring Boot, MySQL, REST APIs, JPA, HTML, CSS, JavaScript</li>
+                            <li><i class="fas fa-bullseye"></i> <strong>Objective:</strong> Create a comprehensive system for managing student records in educational institutions</li>
+                            <li><i class="fas fa-lightbulb"></i> <strong>Features:</strong> Full CRUD operations, user authentication, responsive UI, database integration, RESTful APIs</li>
+                            <li><i class="fas fa-globe"></i> <strong>Deployment:</strong> Deployed on Railway.app - studentsmanagementapp.railway.app</li>
+                            <li><i class="fas fa-check"></i> <strong>Implementation:</strong> Implemented complete backend with Spring Boot and MySQL database integration</li>
+                        </ul>
+                        <div style="margin-top: 1.5rem;">
+                            <span class="skill-tag">Spring Boot</span>
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">REST APIs</span>
+                            <span class="skill-tag">JPA</span>
+                            <span class="skill-tag">Railway.app</span>
+                            <span class="skill-tag">Full Stack</span>
+                        </div>
+                        <div style="margin-top: 1.5rem;">
+                            <a href="https://studentsmanagementapp.railway.app" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                                <i class="fas fa-external-link-alt"></i> View Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" onclick="toggleDetails(this)">
+                <div class="card-header">
+                    <div>
+                        <div class="card-icon"><i class="fas fa-tasks"></i></div>
+                        <h3 class="card-title">To Do List Web Application</h3>
+                        <p class="card-subtitle">Spring Boot + MySQL | 2024</p>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <p class="card-summary">Task management web app to track and prioritize daily activities.</p>
+                <div class="card-details">
+                    <div class="card-details-content">
+                        <ul class="detail-list">
+                            <li><i class="fas fa-cog"></i> <strong>Technology:</strong> Spring Boot, MySQL, HTML, CSS, JavaScript, Bootstrap</li>
+                            <li><i class="fas fa-bullseye"></i> <strong>Objective:</strong> Develop a simple yet effective task management application</li>
+                            <li><i class="fas fa-lightbulb"></i> <strong>Features:</strong> Add, edit, delete tasks, mark tasks as complete, priority setting, due date tracking</li>
+                            <li><i class="fas fa-code-branch"></i> <strong>Source Code:</strong> Hosted on GitHub for open collaboration</li>
+                            <li><i class="fas fa-check"></i> <strong>Implementation:</strong> Built complete backend with Spring Boot and frontend with Bootstrap</li>
+                        </ul>
+                        <div style="margin-top: 1.5rem;">
+                            <span class="skill-tag">Spring Boot</span>
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">Bootstrap</span>
+                            <span class="skill-tag">GitHub</span>
+                            <span class="skill-tag">Task Management</span>
+                        </div>
+                        <div style="margin-top: 1.5rem;">
+                            <a href="https://github.com/NagendraM18" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                                <i class="fab fa-github"></i> View on GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <h2 class="section-title"><span>#</span> Skills</h2>
+        <div class="skills-container">
+            <div class="skill-category">
+                <h3><i class="fas fa-server"></i> Backend</h3>
+                <div class="skill-list">
+                    <span class="skill-tag">Java (Core)</span>
+                    <span class="skill-tag">Spring Boot</span>
+                    <span class="skill-tag">MySQL</span>
+                    <span class="skill-tag">REST APIs</span>
+                    <span class="skill-tag">Spring Boot JPA</span>
+                    <span class="skill-tag">PHP</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Object-Oriented Programming</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3><i class="fas fa-desktop"></i> Frontend</h3>
+                <div class="skill-list">
+                    <span class="skill-tag">HTML5</span>
+                    <span class="skill-tag">CSS3</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">Bootstrap</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3><i class="fas fa-tools"></i> Tools & Technologies</h3>
+                <div class="skill-list">
+                    <span class="skill-tag">VS Code</span>
+                    <span class="skill-tag">Postman</span>
+                    <span class="skill-tag">Git/GitHub</span>
+                    <span class="skill-tag">IntelliJ IDEA</span>
+                    <span class="skill-tag">MySQL Workbench</span>
+                    <span class="skill-tag">XAMPP</span>
+                    <span class="skill-tag">Arduino IDE</span>
+                    <span class="skill-tag">Railway.app</span>
+                    <span class="skill-tag">Forage</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3><i class="fas fa-brain"></i> Core Competencies</h3>
+                <div class="skill-list">
+                    <span class="skill-tag">Problem Solving</span>
+                    <span class="skill-tag">Debugging</span>
+                    <span class="skill-tag">Event Management</span>
+                    <span class="skill-tag">Team Leadership</span>
+                    <span class="skill-tag">Technical Workshops</span>
+                    <span class="skill-tag">Competitive Programming</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Certifications Section -->
+    <section id="certifications" class="section">
+        <h2 class="section-title"><span>#</span> Certifications</h2>
+        <div class="cert-grid">
+            <!-- EA Certification -->
+            <div class="cert-card" onclick="openCertModal('ea')">
+                <div class="cert-badge">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <span class="cert-provider">Electronic Arts</span>
+                <h3 class="card-title">Software Engineering Job Simulation</h3>
+                <p class="card-subtitle">Forage | October 2025</p>
+                <p class="card-summary">Virtual experience program focusing on software engineering practices at EA Sports.</p>
+                <div style="margin-top: 1.5rem;">
+                    <span class="skill-tag">Software Engineering</span>
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">Class Diagrams</span>
+                    <span class="skill-tag">Feature Proposal</span>
+                </div>
+                <button class="btn btn-secondary" style="margin-top: 1.5rem; width: 100%;">
+                    <i class="fas fa-info-circle"></i> View Details
+                </button>
+            </div>
+            
+            <!-- HPE Certification -->
+            <div class="cert-card" onclick="openCertModal('hpe')">
+                <div class="cert-badge">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <span class="cert-provider">Hewlett Packard Enterprise</span>
+                <h3 class="card-title">Software Engineering Job Simulation</h3>
+                <p class="card-subtitle">Forage | October 2025</p>
+                <p class="card-summary">Hands-on experience in building RESTful web applications with Spring Boot.</p>
+                <div style="margin-top: 1.5rem;">
+                    <span class="skill-tag">Spring Boot</span>
+                    <span class="skill-tag">REST APIs</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">Unit Testing</span>
+                </div>
+                <button class="btn btn-secondary" style="margin-top: 1.5rem; width: 100%;">
+                    <i class="fas fa-info-circle"></i> View Details
+                </button>
+            </div>
+            
+            <!-- HackerRank Certification -->
+            <div class="cert-card" onclick="openCertModal('hackerrank')">
+                <div class="cert-badge">
+                    <i class="fab fa-hackerrank"></i>
+                </div>
+                <span class="cert-provider">HackerRank</span>
+                <h3 class="card-title">Java Certificate</h3>
+                <p class="card-subtitle">2025</p>
+                <p class="card-summary">Demonstrated strong understanding of Java fundamentals and OOP concepts.</p>
+                <div style="margin-top: 1.5rem;">
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">OOP</span>
+                    <span class="skill-tag">Problem Solving</span>
+                    <span class="skill-tag">Data Structures</span>
+                </div>
+                <button class="btn btn-secondary" style="margin-top: 1.5rem; width: 100%;">
+                    <i class="fas fa-info-circle"></i> View Details
+                </button>
+            </div>
+            
+            <!-- Great Learning Certification -->
+            <div class="cert-card" onclick="openCertModal('greatlearning')">
+                <div class="cert-badge">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <span class="cert-provider">Great Learning</span>
+                <h3 class="card-title">Java Certificate</h3>
+                <p class="card-subtitle">2024</p>
+                <p class="card-summary">Structured training on Java basics covering syntax, data types, and OOP concepts.</p>
+                <div style="margin-top: 1.5rem;">
+                    <span class="skill-tag">Java Basics</span>
+                    <span class="skill-tag">OOP Concepts</span>
+                    <span class="skill-tag">Data Types</span>
+                    <span class="skill-tag">Methods & Classes</span>
+                </div>
+                <button class="btn btn-secondary" style="margin-top: 1.5rem; width: 100%;">
+                    <i class="fas fa-info-circle"></i> View Details
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section with Direct Email -->
+    <section id="contact" class="section">
+        <h2 class="section-title"><span>#</span> Contact</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h4>Email</h4>
+                        <p>nagendradev2124@gmail.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h4>Phone</h4>
+                        <p>+91 7829731435</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h4>Location</h4>
+                        <p>Bengaluru, Karnataka 560091</p>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://github.com/NagendraM18" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/nagendra-m-904a02284/" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.hackerrank.com/profile/nagendramgowda21" target="_blank" class="social-link">
+                        <i class="fab fa-hackerrank"></i>
+                    </a>
+                    <a href="mailto:nagendradev2124@gmail.com" class="social-link">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="#" onclick="downloadResume()" class="btn btn-primary" style="margin-top: 1rem;">
+                        <i class="fas fa-download"></i> Download Resume
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Direct Email Section -->
+            <div class="direct-email-section">
+                <h3 class="direct-email-title">Get in Touch Directly</h3>
+                <p class="direct-email-subtitle">
+                    I'd love to hear from you! Click the button below to open your email client and send me a message directly. 
+                    All fields will be pre-filled for your convenience.
+                </p>
+                
+                <a href="#" onclick="sendEmail('general')" class="direct-email-btn">
+                    <i class="fas fa-paper-plane"></i> Send Email Now
+                </a>
+                
+                <div class="email-helper-text">
+                    <i class="fas fa-info-circle"></i> This will open your default email client with my address pre-filled
+                </div>
+                
+                <!-- Contact Methods Grid -->
+                <div class="contact-methods">
+                    <div class="contact-method-card">
+                        <div class="method-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3 class="method-title">Job Opportunity</h3>
+                        <p class="method-description">
+                            Interested in discussing potential job opportunities or internships?
+                        </p>
+                        <a href="#" onclick="sendEmail('job')" class="method-action">
+                            Contact for Jobs
+                        </a>
+                    </div>
+                    
+                    <div class="contact-method-card">
+                        <div class="method-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3 class="method-title">Collaboration</h3>
+                        <p class="method-description">
+                            Want to collaborate on a project or discuss technical ideas?
+                        </p>
+                        <a href="#" onclick="sendEmail('collaboration')" class="method-action">
+                            Discuss Project
+                        </a>
+                    </div>
+                    
+                    <div class="contact-method-card">
+                        <div class="method-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h3 class="method-title">General Inquiry</h3>
+                        <p class="method-description">
+                            Have questions about my work or want to learn more about me?
+                        </p>
+                        <a href="#" onclick="sendEmail('general')" class="method-action">
+                            Ask Questions
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="#about">About</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#certifications">Certifications</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p class="copyright">
+                &copy; 2024 Nagendra M. All rights reserved.
+            </p>
+        </div>
+    </footer>
+    
+    <!-- Certification Modals -->
+    <div id="ea-cert-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeCertModal()">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">Electronic Arts - Software Engineering Job Simulation</h2>
+                <p class="modal-subtitle">Forage | October 2025</p>
+            </div>
+            <div class="modal-body">
+                <h3>What I Learned & Accomplished:</h3>
+                <ul class="modal-list">
+                    <li><strong>Feature Proposal:</strong> Proposed a new feature for EA Sports College Football and wrote a detailed Feature Proposal describing it to other stakeholders</li>
+                    <li><strong>Class Diagram Design:</strong> Built a comprehensive class diagram to visualize the structure and relationships of the proposed feature</li>
+                    <li><strong>C++ Implementation:</strong> Created a header file in C++ with class definitions for each object in the feature</li>
+                    <li><strong>Bug Fixing:</strong> Patched a bugfix in the EA Sports College Football codebase</li>
+                    <li><strong>Code Optimization:</strong> Optimized the codebase by implementing an improved data structure</li>
+                    <li><strong>Professional Skills:</strong> Gained knowledge of designing class diagrams and adding new features to existing large-scale projects</li>
+                </ul>
+                
+                <h3>Skills Developed:</h3>
+                <div style="margin: 1.5rem 0;">
+                    <span class="skill-tag">Software Engineering</span>
+                    <span class="skill-tag">C++ Programming</span>
+                    <span class="skill-tag">Class Diagrams</span>
+                    <span class="skill-tag">Feature Proposal Writing</span>
+                    <span class="skill-tag">Code Optimization</span>
+                    <span class="skill-tag">Bug Fixing</span>
+                    <span class="skill-tag">Data Structures</span>
+                </div>
+                
+                <h3>Platform:</h3>
+                <p>Completed on Forage - Virtual work experience platform</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="hpe-cert-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeCertModal()">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">Hewlett Packard Enterprise - Software Engineering Job Simulation</h2>
+                <p class="modal-subtitle">Forage | October 2025</p>
+            </div>
+            <div class="modal-body">
+                <h3>What I Learned & Accomplished:</h3>
+                <ul class="modal-list">
+                    <li><strong>RESTful Web Service Proposal:</strong> Wrote a detailed proposal for a RESTful web service to manage a list of employees</li>
+                    <li><strong>Spring Boot Application:</strong> Built a complete web server application in Java Spring Boot that can accept and respond to HTTP requests</li>
+                    <li><strong>JSON Data Handling:</strong> Implemented support for uploading and processing JSON data within the application</li>
+                    <li><strong>Unit Testing:</strong> Developed and ran a comprehensive set of unit tests to assess the Java Spring Boot application's performance and reliability</li>
+                    <li><strong>Database Integration:</strong> Gained hands-on experience in building RESTful web applications and integrating databases using Spring Boot</li>
+                    <li><strong>Professional Development:</strong> Learned industry-standard practices for backend development and API design</li>
+                </ul>
+                
+                <h3>Technical Skills Applied:</h3>
+                <div style="margin: 1.5rem 0;">
+                    <span class="skill-tag">Spring Boot</span>
+                    <span class="skill-tag">REST APIs</span>
+                    <span class="skill-tag">Java Programming</span>
+                    <span class="skill-tag">Unit Testing</span>
+                    <span class="skill-tag">JSON Processing</span>
+                    <span class="skill-tag">HTTP Protocols</span>
+                    <span class="skill-tag">Web Services</span>
+                    <span class="skill-tag">Database Integration</span>
+                </div>
+                
+                <h3>Platform:</h3>
+                <p>Completed on Forage - Virtual work experience platform</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="hackerrank-cert-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeCertModal()">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">Java Certificate - HackerRank</h2>
+                <p class="modal-subtitle">2025</p>
+            </div>
+            <div class="modal-body">
+                <h3>Skills Validated:</h3>
+                <ul class="modal-list">
+                    <li><strong>Object-Oriented Programming:</strong> Demonstrated strong understanding of OOP principles including inheritance, polymorphism, encapsulation, and abstraction</li>
+                    <li><strong>Java Fundamentals:</strong> Comprehensive knowledge of Java syntax, data types, variables, and operators</li>
+                    <li><strong>Control Structures:</strong> Proficiency with loops (for, while, do-while), conditional statements (if-else, switch), and flow control</li>
+                    <li><strong>Arrays & Collections:</strong> Expertise in working with arrays, ArrayLists, and other collection frameworks</li>
+                    <li><strong>String Manipulation:</strong> Advanced skills in string handling, manipulation, and built-in string methods</li>
+                    <li><strong>Exception Handling:</strong> Thorough understanding of try-catch blocks, custom exceptions, and error handling best practices</li>
+                    <li><strong>Problem Solving:</strong> Ability to solve complex programming challenges using Java</li>
+                </ul>
+                
+                <h3>Assessment Areas:</h3>
+                <div style="margin: 1.5rem 0;">
+                    <span class="skill-tag">Java Basics</span>
+                    <span class="skill-tag">OOP Principles</span>
+                    <span class="skill-tag">Data Structures</span>
+                    <span class="skill-tag">Algorithms</span>
+                    <span class="skill-tag">String Processing</span>
+                    <span class="skill-tag">Exception Handling</span>
+                    <span class="skill-tag">Problem Solving</span>
+                </div>
+                
+                <h3>Platform:</h3>
+                <p>HackerRank - Technical assessment and skill verification platform</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="greatlearning-cert-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeCertModal()">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">Java Certificate - Great Learning</h2>
+                <p class="modal-subtitle">2024</p>
+            </div>
+            <div class="modal-body">
+                <h3>Course Coverage:</h3>
+                <ul class="modal-list">
+                    <li><strong>Java Syntax & Basics:</strong> Complete understanding of Java programming syntax, data types, variables, and operators</li>
+                    <li><strong>Methods & Functions:</strong> Creation and usage of methods, parameter passing, return types, and method overloading</li>
+                    <li><strong>Classes & Objects:</strong> In-depth knowledge of class creation, object instantiation, constructors, and the 'this' keyword</li>
+                    <li><strong>Object-Oriented Concepts:</strong> Comprehensive training on the four pillars of OOP: Encapsulation, Inheritance, Polymorphism, and Abstraction</li>
+                    <li><strong>Inheritance:</strong> Implementation of single, multilevel, and hierarchical inheritance, method overriding, and super keyword usage</li>
+                    <li><strong>Polymorphism:</strong> Understanding of compile-time and runtime polymorphism, method overloading and overriding</li>
+                    <li><strong>Abstraction:</strong> Working with abstract classes and interfaces to achieve abstraction</li>
+                    <li><strong>Encapsulation:</strong> Implementation of data hiding using access modifiers and getter/setter methods</li>
+                </ul>
+                
+                <h3>Learning Outcomes:</h3>
+                <div style="margin: 1.5rem 0;">
+                    <span class="skill-tag">Java Programming</span>
+                    <span class="skill-tag">OOP Fundamentals</span>
+                    <span class="skill-tag">Class Design</span>
+                    <span class="skill-tag">Method Implementation</span>
+                    <span class="skill-tag">Inheritance</span>
+                    <span class="skill-tag">Polymorphism</span>
+                    <span class="skill-tag">Abstraction</span>
+                    <span class="skill-tag">Encapsulation</span>
+                </div>
+                
+                <h3>Platform:</h3>
+                <p>Great Learning - Online learning platform with structured curriculum</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Fallback Modal -->
+    <div id="fallbackModal" class="fallback-modal" style="display: none;">
+        <h3 class="fallback-header">Email Not Opening?</h3>
+        <p class="fallback-text">
+            You can copy my email address and send a message directly from your email client:
+        </p>
+        <div class="email-display">
+            nagendradev2124@gmail.com
+        </div>
+        <button id="copyEmailBtn" class="copy-email-btn" onclick="copyEmailToClipboard()">
+            <i class="fas fa-copy"></i> Copy Email Address
+        </button>
+        <span id="copySuccess" style="display: none; color: var(--accent); margin-left: 1rem;">
+            <i class="fas fa-check"></i> Copied!
+        </span>
+        <a href="#" class="close-fallback" onclick="closeFallbackModal()">Close this message</a>
+    </div>
+    
+    <!-- Particle Background -->
+    <canvas class="particles" id="particles"></canvas>
+
+    <script rel="/javascript" src="portfolio.js">
+        
+    </script>
+</body>
+</html>
